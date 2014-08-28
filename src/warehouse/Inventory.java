@@ -1,22 +1,20 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Inventory.java
+ * Lindsay Simpkins
+ * COMP 755
+ * 8/28/14
+ * An inventory that tracks incoming shipments and outgoing orders of widgets at
+ * a warehouse.
+ * Uses the Stack and Queue classes. Accepts an input file from Main and returns
+ * an output string.
  */
 
 package warehouse;
 
-/**
- *
- * @author Lindsay
- */
 public class Inventory {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
     }
     
 }

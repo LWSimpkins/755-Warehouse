@@ -1,15 +1,15 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Queue.java
+ * Lindsay Simpkins
+ * COMP 755
+ * 8/28/14
+ * A Queue implementation using a linked list. Outgoing orders areplaced in a
+ * queue until they can be filled.
+ * Used in the Inventory class.
  */
 
 package warehouse;
 
-/**
- *
- * @author Lindsay
- */
 public class Queue {
     
 }

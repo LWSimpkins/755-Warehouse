@@ -1,15 +1,15 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Stack.java
+ * Lindsay Simpkins
+ * COMP 755
+ * 8/28/14
+ * A Stack implementation using a linked list. Holds the widgets currently in 
+ * the warehouses inventory.
+ * Used in the Inventory class.
  */
 
 package warehouse;
 
-/**
- *
- * @author Lindsay
- */
 public class Stack {
     
 }
