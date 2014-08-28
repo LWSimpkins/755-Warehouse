@@ -25,10 +25,6 @@
 
 package warehouse;
 
-/**
- *
- * @author Lindsay
- */
 public class Main {
     
 }
