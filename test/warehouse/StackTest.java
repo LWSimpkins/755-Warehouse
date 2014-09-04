@@ -47,18 +47,18 @@ public class StackTest {
      */
     @Test
     public void testPushOrder() {
-        System.out.println("pushOrder");
+        System.out.println("StackTest: testPushOrder()");
         Stack instance = new Stack();
         //Add one order to the stack. Check if empty. Check the toString result.
         Stack.Order order = instance.new Order(15, 1, "ABC");
         instance.pushOrder(order);
         assertEquals("Order added to stack. Should not be empty", false, instance.isEmpty());
-        assertEquals("Check the toString is correct.", "15 1 ABC"+eol,instance.toString());
+        assertEquals("Check the toString is correct.", "15 1.0 ABC"+eol,instance.toString());
         //Add second order to the stack. Check if empty. Print the toString result.
         Stack.Order orderTwo = instance.new Order(20, 5, "DEF");
         instance.pushOrder(orderTwo);
         assertEquals("Order 2 added to stack. Should not be empty", false, instance.isEmpty());
-        assertEquals("Check the toString is correct.", "20 5 DEF"+eol +"15 1 ABC"+eol,instance.toString());
+        assertEquals("Check the toString is correct.", "20 5.0 DEF"+eol +"15 1.0 ABC"+eol,instance.toString());
     }
 
     /**
@@ -66,7 +66,7 @@ public class StackTest {
      */
     @Test
     public void testPopOrder() {
-        System.out.println("popOrder");
+        System.out.println("StackTest: testpopOrder()");
         Stack instance = new Stack();
         
         //Check if popping order on empty stack
@@ -106,7 +106,7 @@ public class StackTest {
      */
     @Test
     public void testToString() {
-        System.out.println("toString");
+        System.out.println("StackTest: testToString()");
         Stack instance = new Stack();
         String expResult = "";
         String result = instance.toString();
@@ -115,28 +115,31 @@ public class StackTest {
         //Add one order to the stack
         Stack.Order order = instance.new Order(15,1,"ABC");
         instance.pushOrder(order);
-        expResult = "15 1 ABC" + eol;
+        expResult = "15 1.0 ABC" + eol;
         result = instance.toString();
-        assertEquals("One order on the stack",expResult, result);
+        System.out.println(expResult);
+        System.out.println(result);
+        
+        assertEquals("One order on the stack", expResult, result);
         
         //Add a second order to the stack
         Stack.Order orderTwo = instance.new Order(20,5,"DEF");
-        instance.pushOrder(order);
-        expResult = "20 5 DEF"+ eol+"15 1 ABC" + eol;
+        instance.pushOrder(orderTwo);
+        expResult = "20 5.0 DEF"+ eol+"15 1.0 ABC" + eol;
         result = instance.toString();
         assertEquals("Two orders on the stack",expResult, result);
         
         //Remove one order from stack
         instance.popOrder();
-        expResult = "15 1 ABC" + eol;
+        expResult = "15 1.0 ABC" + eol;
         result = instance.toString();
-        assertEquals("One order on the stack",expResult, result);
+        assertEquals("One order removed from the stack",expResult, result);
         
         //Remove second order from stack
         instance.popOrder();
          expResult = "";
         result = instance.toString();
-        assertEquals("One order on the stack",expResult, result);
+        assertEquals("All orders removed from the stack. Should be empty.",expResult, result);
     }
     
 }

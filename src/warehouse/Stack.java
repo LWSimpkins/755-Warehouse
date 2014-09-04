@@ -34,6 +34,7 @@ public class Stack {
             else{
                 Node temp = new Node(order, topNode);   //Creates a new node with the order
                 topNode.setLink(temp);
+                topNode = temp;
             }
             
         }
@@ -58,11 +59,15 @@ public class Stack {
         String stackInfo ="";
         
         if(!isEmpty()){
-            Node temp = new Node();
-            temp.setLink(topNode);
+            //Node temp = new Node();
+            //temp.setLink(topNode);
+            
+            Node temp = topNode;
+            
             while(temp != null){
-                stackInfo.concat(temp.getOrder().toString() + eol);
-                temp.setLink(temp.getLink());
+                //stackInfo.concat(temp.getOrder().toString() + eol);
+                stackInfo = stackInfo + temp.getOrder().toString() + eol;
+                temp= temp.getLink();
             }
         }
         
