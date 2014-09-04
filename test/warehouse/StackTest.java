@@ -36,9 +36,7 @@ public class StackTest {
     public void testIsEmpty() {
         System.out.println("StackTest: testIsEmpty()");
         Stack instance = new Stack();
-        boolean expResult = true;
-        boolean result = instance.isEmpty();
-        assertEquals("Stack is created but empty", expResult, result);
+        assertTrue("Stack is created but empty", instance.isEmpty());
     }
 
     /**
@@ -51,12 +49,13 @@ public class StackTest {
         //Add one order to the stack. Check if empty. Check the toString result.
         Stack.Order order = instance.new Order(15, 1, "ABC");
         instance.pushOrder(order);
-        assertEquals("Order added to stack. Should not be empty", false, instance.isEmpty());
+        assertFalse("Order added to stack. Should not be empty", instance.isEmpty());
         assertEquals("Check the toString is correct.", "15 1.0 ABC" + eol, instance.toString());
+        
         //Add second order to the stack. Check if empty. Print the toString result.
         Stack.Order orderTwo = instance.new Order(20, 5, "DEF");
         instance.pushOrder(orderTwo);
-        assertEquals("Order 2 added to stack. Should not be empty", false, instance.isEmpty());
+        assertFalse("Order 2 added to stack. Should not be empty", instance.isEmpty());
         assertEquals("Check the toString is correct.", "20 5.0 DEF" + eol + "15 1.0 ABC" + eol, instance.toString());
     }
 
@@ -69,35 +68,31 @@ public class StackTest {
         Stack instance = new Stack();
 
         //Check if popping order on empty stack
-        Stack.Order result = instance.popOrder();
-        assertNull("Check if order popped on empty stack is null", result);
+        Stack.Order order = instance.popOrder();
+        assertNull("Check if order popped on empty stack is null", order);
 
         //create new order, add to stack
-        Stack.Order expResult = instance.new Order(15, 1, "ABC");
-        instance.pushOrder(expResult);
+        Stack.Order expOrder = instance.new Order(15, 1, "ABC");
+        instance.pushOrder(expOrder);
         //pop top order. check if the same
-        result = instance.popOrder();
-        assertEquals("Pop one order. Check if same as pushed order.", expResult, result);
+        order = instance.popOrder();
+        assertEquals("Pop one order. Check if same as pushed order.", expOrder, order);
 
         //check if the toString output is the correct
-        String expString = expResult.toString();
-        String resultString = result.toString();
-        assertEquals("Check if the toString is the same for the popped order as the order that was pushed", expString, resultString);
+        assertEquals("Check if the toString is the same for the popped order as the order that was pushed", expOrder.toString(), order.toString());
 
         //check if the stack is now empty
-        assertEquals("Stack should be empty", true, instance.isEmpty());
+        assertTrue("Stack should be empty", instance.isEmpty());
 
         //Add a first order, and a second order. Check if popped order is the second order.
-        instance.pushOrder(expResult);
-        Stack.Order expResultTwo = instance.new Order(20, 5, "DEF");
-        instance.pushOrder(expResultTwo);
-        result = instance.popOrder();
-        assertEquals("Check if the order popped is the same as the second order placed on the stack", expResultTwo, result);
+        instance.pushOrder(expOrder);
+        Stack.Order expOrderTwo = instance.new Order(20, 5, "DEF");
+        instance.pushOrder(expOrderTwo);
+        order = instance.popOrder();
+        assertEquals("Check if the order popped is the same as the second order placed on the stack", expOrderTwo, order);
 
         //check if the toString output is correct
-        expString = expResultTwo.toString();
-        resultString = result.toString();
-        assertEquals("Check if the toString is the same for the last order placed on the stack and the order popped from the stack", expString, resultString);
+        assertEquals("Check if the toString is the same for the last order placed on the stack and the order popped from the stack", expOrderTwo.toString(), order.toString());
     }
 
     /**
