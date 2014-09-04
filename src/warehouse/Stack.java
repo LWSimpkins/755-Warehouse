@@ -13,6 +13,7 @@ package warehouse;
 
 public class Stack {
     Node topNode;
+    String eol = System.getProperty("line.separator");
     
     public Stack(){
         topNode = null;        //'pointer' to top of the stack
@@ -23,11 +24,19 @@ public class Stack {
         return topNode == null;
     }
     
-    //Add an Order to the stack. Works whether or not the list is empty
+    //Add an Order to the stack. 
     //A Node on the stack 'points' to the previous Node on the stack (or null)
     public void pushOrder(Order order){
-        Node temp = new Node(order, topNode);   //Creates a new node with the order
-        topNode.setLink(temp);
+        if(order != null){
+            if(isEmpty()){
+                topNode = new Node(order, topNode);
+            }
+            else{
+                Node temp = new Node(order, topNode);   //Creates a new node with the order
+                topNode.setLink(temp);
+            }
+            
+        }
     }
     
     //pop the top Order off the stack and return it (or null)
@@ -52,7 +61,7 @@ public class Stack {
             Node temp = new Node();
             temp.setLink(topNode);
             while(temp != null){
-                stackInfo.concat(temp.getOrder().toString() + "\n");
+                stackInfo.concat(temp.getOrder().toString() + eol);
                 temp.setLink(temp.getLink());
             }
         }
@@ -61,7 +70,7 @@ public class Stack {
     }
     
     //
-    private class Order{
+    public class Order{
         private int amount;         //quantity of widgets in incoming order
         private double cost;        //cost of widgets in incoming order
         private String vendor;      //name of the company recieved from
