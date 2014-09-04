@@ -24,20 +24,12 @@ public class Stack {
         return topNode == null;
     }
     
-    //Add an Order to the stack. 
+    //Add an Order to the stack. Works if stack is empty or not.
     //A Node on the stack 'points' to the previous Node on the stack (or null)
     public void pushOrder(Order order){
         if(order != null){
-            if(isEmpty()){
-                topNode = new Node(order, topNode);
-            }
-            else{
-                Node temp = new Node(order, topNode);   //Creates a new node with the order
-                topNode.setLink(temp);
-                topNode = temp;
-            }
-            
-        }
+            topNode = new Node(order, topNode);
+                    }
     }
     
     //pop the top Order off the stack and return it (or null)
