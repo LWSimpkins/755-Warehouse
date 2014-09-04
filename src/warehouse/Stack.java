@@ -37,8 +37,7 @@ public class Stack {
         //check if stack is empty first
         if(!isEmpty()){
             Order getOrder = topNode.getOrder();
-            topNode.setLink(topNode.getLink());
-            
+            topNode = topNode.getLink();            
             return getOrder;            
         }
         else{
