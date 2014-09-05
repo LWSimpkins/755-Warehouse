@@ -53,9 +53,6 @@ public class Stack<T> {
         String stackInfo ="";
         
         if(!isEmpty()){
-            //Node temp = new Node();
-            //temp.setLink(topNode);
-            
             Node temp = topNode;
             
             while(temp != null){
@@ -69,12 +66,12 @@ public class Stack<T> {
     }
     
     /**
-    * Generic version of the internal Node class
-    * @param <T> the type of item being placed in the Node
+    * Generic version of an internal Node class
+    * @param <T> the type of data being placed in the Node
     */
     private class Node<T>{
-        private T t;        //Order being placed on the stack
-        private Node link;          //'pointer' to the previous node on the stack
+        private T t;            //Data being placed on the stack
+        private Node link;      //'pointer' to the previous node on the stack
         
         public Node(){
             t = null;

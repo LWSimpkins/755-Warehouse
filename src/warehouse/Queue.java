@@ -3,78 +3,95 @@
  * Lindsay Simpkins
  * COMP 755
  * 8/28/14
- * A Queue implementation using a linked list. Outgoing orders are placed in a
- * queue until they can be filled.
+ * A FIFO Queue implementation using a linked list. Outgoing orders are placed 
+ * in a queue until they can be filled.
  * Used in the Inventory class.
  */
 
 package warehouse;
 
-public class Queue {
+/**
+ * Generic version of the Queue class
+ * @param <T> the type of item being placed in the queue
+ */
+public class Queue<T> {
     
-    Node frontNode;
-    Node backNode;
+    Node<T> frontNode;
+    Node<T> backNode;
+    String eol = System.getProperty("line.separator");
     
     public Queue(){
-        
+        frontNode = null;
+        backNode = null;
     }
     
     public boolean isEmpty(){
-        return true;
+        return frontNode == null;
     }
     
-    public void addItem(){
-        
+    //Adds an item to the back of the queue
+    public void addItem(T t){
+        if(isEmpty()){
+            frontNode = new Node(t, null);
+            backNode = frontNode;
+        }
+        else{
+            backNode.setLink(new Node(t, null));
+            backNode = backNode.getLink();
+        }
     }
     
    //from front of the queue
-    public void getItem(){
-        
+    public T getItem(){
+        if(isEmpty()){
+            return null;
+        }
+        else{
+            T getT = frontNode.getItem();
+            frontNode = frontNode.getLink();
+            
+            //Check if frontNode is now null. Set backNode to null if true
+            if(frontNode==null){
+                backNode = null;
+            }
+            
+            return getT;
+        }
     } 
 
     public String toString(){
-        return "";
+        String queueInfo ="";
+        
+        if(!isEmpty()){
+            
+            Node temp = frontNode;
+            
+            while(temp != null){
+                //queueInfo.concat(temp.getItem().toString() + eol);
+                queueInfo = queueInfo + temp.getItem().toString() + eol;
+                temp= temp.getLink();
+            }
+        }
+        
+        return queueInfo;
     }
+
     
-    //frontNode
-    //backNode
-    
-    
-        //
-    public class Order{
-        private int amount;         //quantity of widgets in incoming order
-        private double cost;        //cost of widgets in incoming order
-        private String vendor;      //name of the company recieved from
-        
-        public Order(){
-            amount = 0;
-            cost = 0;
-            vendor = "";
-        }
-        
-        public Order(int amount, double cost, String vendor){
-            this.amount = amount;
-            this.cost = cost;
-            this.vendor = vendor;
-        }
-        
-        public String toString(){
-            return amount + " " + cost + " " + vendor;
-        }
-    }
-    
-    //
-    private class Node{
-        private Order order;        //Order being placed on the stack
-        private Node link;          //'pointer' to the previous node on the stack
+    /**
+    * Generic version of an internal Node class
+    * @param <T> the type of data being placed in the Node
+    */
+    private class Node<T>{
+        private T t;            //Data being placed on the queue
+        private Node link;      //'pointer' to the previous node on the queue
         
         public Node(){
-            order = null;
+            t = null;
             link = null;
         }
         
-        public Node(Order order, Node link){
-            this.order = order;
+        public Node(T t, Node link){
+            this.t = t;
             this.link = link;
         }
         
@@ -86,8 +103,8 @@ public class Queue {
             return link;
         }
         
-        public Order getOrder(){
-            return order;
+        public T getItem(){
+            return t;
         }
     }
 }
