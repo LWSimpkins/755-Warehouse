@@ -32,7 +32,7 @@ public class Main {
     public static void main(String args[]){
 
         Inventory inventory = new Inventory();
-        String output;  //To hold the String returned by the Inventory readFile method 
+        String output = "";  //To hold the String returned by the Inventory readFile method 
         
         //If a file was passed by command-line, use it to populate data
         if(args.length!=0){
@@ -50,6 +50,8 @@ public class Main {
                 output = inventory.readFile(leagueDataFile.getPath());
             }
         }
+        
+        System.out.print(output);
         
     }
     

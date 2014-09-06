@@ -79,6 +79,9 @@ public class Inventory {
             System.err.println("File not found.");
         }
 
+        if(currentOrder != null){
+            output += "Order for vendor " + currentOrder.getVendor() + " of " + currentOrder.getAmount() + " widgets cannot be filled";
+        }
         return output;
     }
 
@@ -106,12 +109,22 @@ public class Inventory {
                     widgetFromStack.setAmount(numWidgetsFromStack - numWidgetsNeeded);
                     stack.pushItem(widgetFromStack);
                     output = orderComplete(output);
-                } //If there are fewer widgets available than the amount needed
+                } 
+                //If the widgets available is exactly the amount needed
                 //pull shipment from stack and add to ArrayList
                 //update the cost of the order
                 //Update the numWidgetsNeeded
-                else if (numWidgetsFromStack <= numWidgetsNeeded) {
-                    costOfOrder = numWidgetsFromStack * (widgetFromStack.getCost() * 1.5);
+                else if (numWidgetsFromStack == numWidgetsNeeded) {
+                    costOfOrder += numWidgetsFromStack * (widgetFromStack.getCost() * 1.5);
+                    listOfWidgetsUsed.add(widgetFromStack);
+                    orderComplete(output);
+                }
+                //If there are fewer widgets available than the amount needed
+                //pull shipment from stack and add to ArrayList
+                //update the cost of the order
+                //Update the numWidgetsNeeded
+                else{
+                    costOfOrder += numWidgetsFromStack * (widgetFromStack.getCost() * 1.5);
                     listOfWidgetsUsed.add(widgetFromStack);
                     numWidgetsNeeded -= numWidgetsFromStack;
                 }
@@ -126,7 +139,7 @@ public class Inventory {
         output += currentOrder.getVendor() + currentOrder.getAmount() + costOfOrder + eol;
         while (listOfWidgetsUsed.isEmpty() == false) {
             Widget tempWidget = listOfWidgetsUsed.remove(0);
-            output += tempWidget.toString();
+            output += tempWidget.toString() + eol;
         }
 
         currentOrder = null;
