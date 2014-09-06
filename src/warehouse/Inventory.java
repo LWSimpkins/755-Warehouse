@@ -89,8 +89,11 @@ public class Inventory {
                          */
                         amount = input.nextInt();
                         vendor = input.nextLine();
-
+                        
                         System.out.println("Read in order: " + amount + " " + vendor);
+                        
+                        widget.setAmount(amount);
+                        widget.setVendor(vendor);
 
                         //add to queue
                         queue.addItem(widget);
