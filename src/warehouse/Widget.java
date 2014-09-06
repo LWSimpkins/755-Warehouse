@@ -36,9 +36,33 @@ public class Widget {
     }
 
     public String toString() {
-        if (cost == 0) {
-            return amount + " " + vendor;
+        if (getCost() == 0) {
+            return getAmount() + " " + getVendor();
         }
-        return amount + " " + cost + " " + vendor;
+        return getAmount() + " " + getCost() + " " + getVendor();
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
+
+    public String getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
     }
 }
