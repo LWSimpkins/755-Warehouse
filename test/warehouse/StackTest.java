@@ -50,13 +50,13 @@ public class StackTest {
         //Add one Widget to the stack. Check if empty. Check the toString result.
         Widget widget = new Widget(15, 1, "ABC");
         stack.pushItem(widget);
-        assertFalse("Order added to stack. Should not be empty", stack.isEmpty());
+        assertFalse("Widget added to stack. Should not be empty", stack.isEmpty());
         assertEquals("Check the toString is correct.", "15 1.0 ABC" + eol, stack.toString());
         
         //Add second Widget to the stack. Check if empty. Print the toString result.
-        Widget orderTwo = new Widget(20, 5, "DEF");
-        stack.pushItem(orderTwo);
-        assertFalse("Order 2 added to stack. Should not be empty", stack.isEmpty());
+        Widget widgetTwo = new Widget(20, 5, "DEF");
+        stack.pushItem(widgetTwo);
+        assertFalse("Second Widget added to stack. Should not be empty", stack.isEmpty());
         assertEquals("Check the toString is correct.", "20 5.0 DEF" + eol + "15 1.0 ABC" + eol, stack.toString());
     }
 
@@ -70,17 +70,17 @@ public class StackTest {
 
         //Check if popping Widget on empty stack returns null
         Widget widget = stack.popItem();
-        assertNull("Check if order popped on empty stack is null", widget);
+        assertNull("Check if widget popped from empty stack is null", widget);
 
         //create new Widget, add to stack
         Widget expWidget = new Widget(15, 1, "ABC");
         stack.pushItem(expWidget);
         //pop top order. check if the same
         widget = stack.popItem();
-        assertEquals("Pop one order. Check if same as pushed order.", expWidget, widget);
+        assertEquals("Pop one widget. Check if same as pushed widget.", expWidget, widget);
 
         //check if the toString output is the correct
-        assertEquals("Check if the toString is the same for the popped order as the order that was pushed", expWidget.toString(), widget.toString());
+        assertEquals("Check if the toString is the same for the popped widget as the widget that was pushed", expWidget.toString(), widget.toString());
 
         //check if the stack is now empty
         assertTrue("Stack should be empty", stack.isEmpty());
@@ -90,10 +90,10 @@ public class StackTest {
         Widget expWidgetTwo = new Widget(20, 5, "DEF");
         stack.pushItem(expWidgetTwo);
         widget = stack.popItem();
-        assertEquals("Check if the order popped is the same as the second order placed on the stack", expWidgetTwo, widget);
+        assertEquals("Check if the widget popped is the same as the second widget placed on the stack", expWidgetTwo, widget);
 
         //check if the toString output is correct
-        assertEquals("Check if the toString is the same for the last order placed on the stack and the order popped from the stack", expWidgetTwo.toString(), widget.toString());
+        assertEquals("Check if the toString is the same for the last widget placed on the stack and the widget popped from the stack", expWidgetTwo.toString(), widget.toString());
     }
 
     /**
@@ -108,20 +108,20 @@ public class StackTest {
         //Add one widget to the stack
         Widget widget = new Widget(15, 1, "ABC");
         stack.pushItem(widget);
-        assertEquals("One order on the stack", "15 1.0 ABC" + eol, stack.toString());
+        assertEquals("One widget on the stack", "15 1.0 ABC" + eol, stack.toString());
 
         //Add a second widget to the stack
         Widget widgetTwo = new Widget(20, 5, "DEF");
         stack.pushItem(widgetTwo);
-        assertEquals("Two orders on the stack", "20 5.0 DEF" + eol + "15 1.0 ABC" + eol, stack.toString());
+        assertEquals("Two widgets on the stack", "20 5.0 DEF" + eol + "15 1.0 ABC" + eol, stack.toString());
 
         //Remove one widget from stack
         stack.popItem();
-        assertEquals("One order removed from the stack. First order remains", "15 1.0 ABC" + eol, stack.toString());
+        assertEquals("One widget removed from the stack. First widget remains", "15 1.0 ABC" + eol, stack.toString());
 
         //Remove second widget from stack
         stack.popItem();
-        assertEquals("All orders removed from the stack. Should be empty.", "", stack.toString());
+        assertEquals("All widgets removed from the stack. Should be empty.", "", stack.toString());
     }
 
 }
