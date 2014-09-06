@@ -25,9 +25,32 @@
 
 package warehouse;
 
+import java.io.File;
+import javax.swing.JFileChooser;
+
 public class Main {
     public static void main(String args[]){
 
+        Inventory inventory = new Inventory();
+        String output;  //To hold the String returned by the Inventory readFile method 
+        
+        //If a file was passed by command-line, use it to populate data
+        if(args.length!=0){
+            output = inventory.readFile(args[0]);
+        }
+        //if no file was given, prompt user for file using JFileChooser
+        else{
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setCurrentDirectory(new File("C:\\"));
+            fileChooser.setMultiSelectionEnabled(false);  //allow selection of only one file
+            int ret = fileChooser.showDialog(null, "Select Warehouse Data");
+
+            if (ret == JFileChooser.APPROVE_OPTION) {
+                File leagueDataFile = fileChooser.getSelectedFile();
+                output = inventory.readFile(leagueDataFile.getPath());
+            }
+        }
+        
     }
     
 }
