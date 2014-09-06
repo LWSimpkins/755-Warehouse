@@ -42,36 +42,61 @@ public class Inventory {
             while (input.hasNext()) {
                 //Get the type of object, denoted by s/o
                 type = input.next();
+                int amount;
+                double cost;
+                String vendor;
 
                 //Input data for that object type
                 switch (type) {
+                    
                     case "s":
                         widget = new Widget();
 
-                        widget.setAmount(input.nextInt());
-                        widget.setCost(input.nextDouble());
-                        widget.setVendor(input.nextLine());
+                        /*
+                         widget.setAmount(input.nextInt());
+                         widget.setCost(input.nextDouble());
+                         widget.setVendor(input.nextLine());
+                         */
+                        amount = input.nextInt();
+                        cost = input.nextDouble();
+                        vendor = input.nextLine();
+
+                        System.out.println("Read in shipment: " + amount + " " + cost + " " + vendor);
+
+                        widget.setAmount(amount);
+                        widget.setCost(cost);
+                        widget.setVendor(vendor);
+                        
+                        System.out.println("New Stack: " + stack.toString());
 
                         //add to stack
                         stack.pushItem(widget);
 
-                        if(currentOrder != null){
-                            output = fillOrder(output);
-                        }
+                        if (currentOrder != null) {
+                            //output = fillOrder(output);
+                        }                                                                    
                         break;
 
                     case "o":
                         widget = new Widget();
 
-                        widget.setAmount(input.nextInt());
-                        widget.setVendor(input.nextLine());
+                        /*
+                         widget.setAmount(input.nextInt());
+                         widget.setVendor(input.nextLine());
+                         */
+                        amount = input.nextInt();
+                        vendor = input.nextLine();
+                        
+                        System.out.println("Read in order: " + amount + " " + vendor);
 
                         //add to queue
                         queue.addItem(widget);
 
-                        if(stack.isEmpty() == false){
-                            output = fillOrder(output);
-                        }                        
+                        System.out.println("New queue: " + queue.toString());
+                        
+                        if (stack.isEmpty() == false) {
+                            //output = fillOrder(output);
+                        }                                          
                         break;
                 }
             }
@@ -79,8 +104,10 @@ public class Inventory {
             System.err.println("File not found.");
         }
 
-        if(currentOrder != null){
+        if (currentOrder != null) {
             output += "Order for vendor " + currentOrder.getVendor() + " of " + currentOrder.getAmount() + " widgets cannot be filled";
+            
+            System.out.println("Order for vendor " + currentOrder.getVendor() + " of " + currentOrder.getAmount() + " widgets cannot be filled");
         }
         return output;
     }
@@ -91,7 +118,7 @@ public class Inventory {
 
             if (currentOrder == null) {
                 currentOrder = queue.getItem();
-                numWidgetsNeeded = currentOrder.getAmount();
+                numWidgetsNeeded = currentOrder.getAmount();                
             }
 
             while (numWidgetsNeeded != 0 && stack.isEmpty() == false) {
@@ -109,34 +136,38 @@ public class Inventory {
                     widgetFromStack.setAmount(numWidgetsFromStack - numWidgetsNeeded);
                     stack.pushItem(widgetFromStack);
                     output = orderComplete(output);
-                } 
-                //If the widgets available is exactly the amount needed
+                    
+                    System.out.println("After completed order had > need " + stack.toString() + queue.toString());
+                    System.out.println(output);
+                } //If the widgets available is exactly the amount needed
                 //pull shipment from stack and add to ArrayList
                 //update the cost of the order
                 //Update the numWidgetsNeeded
                 else if (numWidgetsFromStack == numWidgetsNeeded) {
                     costOfOrder += numWidgetsFromStack * (widgetFromStack.getCost() * 1.5);
                     listOfWidgetsUsed.add(widgetFromStack);
-                    orderComplete(output);
-                }
-                //If there are fewer widgets available than the amount needed
+                    output = orderComplete(output);
+                    
+                    System.out.println("After completed order had = need " + stack.toString() + queue.toString());
+                    System.out.println(output);
+                } //If there are fewer widgets available than the amount needed
                 //pull shipment from stack and add to ArrayList
                 //update the cost of the order
                 //Update the numWidgetsNeeded
-                else{
+                else {
                     costOfOrder += numWidgetsFromStack * (widgetFromStack.getCost() * 1.5);
                     listOfWidgetsUsed.add(widgetFromStack);
-                    numWidgetsNeeded -= numWidgetsFromStack;
+                    numWidgetsNeeded -= numWidgetsFromStack;                    
                 }
             }
         }
-        
+
         return output;
     }
 
     //output to string, empty ArrayList, clear currentOrder, cost, widgetsNeeded
     private String orderComplete(String output) {
-        output += currentOrder.getVendor() + currentOrder.getAmount() + costOfOrder + eol;
+        output += String.format("%s \t %d \t %.2f", currentOrder.getVendor(), currentOrder.getAmount(), costOfOrder) + eol;
         while (listOfWidgetsUsed.isEmpty() == false) {
             Widget tempWidget = listOfWidgetsUsed.remove(0);
             output += tempWidget.toString() + eol;
@@ -145,7 +176,7 @@ public class Inventory {
         currentOrder = null;
         numWidgetsNeeded = 0;
         costOfOrder = 0;
-
+        
         return output;
     }
 }
