@@ -51,13 +51,13 @@ public class StackTest {
         Widget widget = new Widget(15, 1, "ABC");
         stack.pushItem(widget);
         assertFalse("Widget added to stack. Should not be empty", stack.isEmpty());
-        assertEquals("Check the toString is correct.", "15 1.0 ABC" + eol, stack.toString());
+        assertEquals("Check the toString is correct.", "15" + "\t" + "1.0" + "\t" + "ABC" + eol, stack.toString());
         
         //Add second Widget to the stack. Check if empty. Print the toString result.
         Widget widgetTwo = new Widget(20, 5, "DEF");
         stack.pushItem(widgetTwo);
         assertFalse("Second Widget added to stack. Should not be empty", stack.isEmpty());
-        assertEquals("Check the toString is correct.", "20 5.0 DEF" + eol + "15 1.0 ABC" + eol, stack.toString());
+        assertEquals("Check the toString is correct.", "20" + "\t" + "5.0" + "\t" + "DEF" + eol + "15" + "\t" + "1.0" + "\t" + "ABC" + eol, stack.toString());
     }
 
     /**
@@ -108,16 +108,16 @@ public class StackTest {
         //Add one widget to the stack
         Widget widget = new Widget(15, 1, "ABC");
         stack.pushItem(widget);
-        assertEquals("One widget on the stack", "15 1.0 ABC" + eol, stack.toString());
+        assertEquals("One widget on the stack", "15" + "\t" + "1.0" + "\t" + "ABC" + eol, stack.toString());
 
         //Add a second widget to the stack
         Widget widgetTwo = new Widget(20, 5, "DEF");
         stack.pushItem(widgetTwo);
-        assertEquals("Two widgets on the stack", "20 5.0 DEF" + eol + "15 1.0 ABC" + eol, stack.toString());
+        assertEquals("Two widgets on the stack", "20" + "\t" + "5.0" + "\t" + "DEF" + eol + "15" + "\t" + "1.0" + "\t" + "ABC" + eol, stack.toString());
 
         //Remove one widget from stack
         stack.popItem();
-        assertEquals("One widget removed from the stack. First widget remains", "15 1.0 ABC" + eol, stack.toString());
+        assertEquals("One widget removed from the stack. First widget remains", "15" + "\t" + "1.0" + "\t" + "ABC" + eol, stack.toString());
 
         //Remove second widget from stack
         stack.popItem();

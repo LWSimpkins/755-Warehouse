@@ -37,9 +37,9 @@ public class Widget {
 
     public String toString() {
         if (getCost() == 0) {
-            return getAmount() + " " + getVendor();
+            return getAmount() + "\t" + getVendor();
         }
-        return getAmount() + " " + getCost() + " " + getVendor();
+        return getAmount() + "\t" + getCost() + "\t" + getVendor();
     }
 
     public int getAmount() {

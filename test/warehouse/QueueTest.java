@@ -52,13 +52,13 @@ public class QueueTest {
         //Add one Widget to the queue. Check if empty. Check toString value
         queue.addItem(widget);
         assertFalse("Widget added. Queue should not be empty.", queue.isEmpty());
-        assertEquals("Check the toString is correct.", "50 ABC" + eol, queue.toString());
+        assertEquals("Check the toString is correct.", "50" + "\t" + "ABC" + eol, queue.toString());
         
         //Add second Widget to the queue. Check if empty. Check toString value.
         Widget widgetTwo = new Widget(75, "DEF");
         queue.addItem(widgetTwo);
         assertFalse("Second Widget added. Queue hould not be empty", queue.isEmpty());
-        assertEquals("Check the toString is correct.", "50 ABC" + eol + "75 DEF" + eol, queue.toString());
+        assertEquals("Check the toString is correct.", "50" + "\t" + "ABC" + eol + "75" + "\t" + "DEF" + eol, queue.toString());
     }
 
     /**
@@ -109,16 +109,16 @@ public class QueueTest {
         //Add one widget to the queue
         Widget widget = new Widget(50, "ABC");
         queue.addItem(widget);
-        assertEquals("One widget on the queue", "50 ABC" + eol, queue.toString());
+        assertEquals("One widget on the queue", "50" + "\t" + "ABC" + eol, queue.toString());
 
         //Add a second widget to the queue
         Widget widgetTwo = new Widget(75, "DEF");
         queue.addItem(widgetTwo);
-        assertEquals("Two widgets on the queue", "50 ABC" + eol + "75 DEF" + eol, queue.toString());
+        assertEquals("Two widgets on the queue", "50" + "\t" + "ABC" + eol + "75" + "\t" + "DEF" + eol, queue.toString());
 
         //Remove one widget from stack
         queue.getItem();
-        assertEquals("One widget removed from the queue. Second widget remains", "75 DEF" + eol, queue.toString());
+        assertEquals("One widget removed from the queue. Second widget remains", "75" + "\t" + "DEF" + eol, queue.toString());
 
         //Remove second widget from stack
         queue.getItem();

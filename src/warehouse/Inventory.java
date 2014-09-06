@@ -153,7 +153,7 @@ public class Inventory {
         output += String.format("%s \t %d \t $%.2f", currentOrder.getVendor(), currentOrder.getAmount(), costOfOrder) + eol;
         while (listOfWidgetsUsed.isEmpty() == false) {
             Widget tempWidget = listOfWidgetsUsed.remove(0);
-            output += tempWidget.toString() + eol;
+            output += "\t" + tempWidget.toString() + eol;
         }
 
         currentOrder = null;
