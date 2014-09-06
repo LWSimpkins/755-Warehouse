@@ -43,7 +43,6 @@ public class Inventory {
 
                 //Get the type of input, denoted by s/o
                 type = input.next();
-                System.out.println(type);
 
                 int amount;
                 double cost;
@@ -55,32 +54,15 @@ public class Inventory {
                     case "s":
                         widget = new Widget();
 
-                        /*
-                         widget.setAmount(input.nextInt());
-                         widget.setCost(input.nextDouble());
-                         widget.setVendor(input.nextLine());
-                         */
-                        amount = input.nextInt();
-                        cost = input.nextDouble();
-                        vendor = input.nextLine();
-
-                        System.out.println("Read in shipment: " + amount + " " + cost + " " + vendor);
-
-                        widget.setAmount(amount);
-                        widget.setCost(cost);
-                        widget.setVendor(vendor);
+                        widget.setAmount(input.nextInt());
+                        widget.setCost(input.nextDouble());
+                        widget.setVendor(input.nextLine());
 
                         //add to stack
                         stack.pushItem(widget);
-                        
-                        System.out.println("New Stack: \n" + stack.toString());
-                        
-                        boolean a = currentOrder != null;
-                        boolean b = queue.isEmpty()==false;
-                        System.out.println(a + " " + b);
-                        if (currentOrder != null || queue.isEmpty()==false) {
+
+                        if (currentOrder != null || queue.isEmpty() == false) {
                             output = fillOrder(output);
-                            System.out.println("fillOrder was called from shipments");
                         }
                         break;
 
@@ -93,20 +75,15 @@ public class Inventory {
                          */
                         amount = input.nextInt();
                         vendor = input.nextLine();
-                        
-                        System.out.println("Read in order: " + amount + " " + vendor);
-                        
+
                         widget.setAmount(amount);
                         widget.setVendor(vendor);
 
                         //add to queue
                         queue.addItem(widget);
-                        
-                        System.out.println("New queue: \n" + queue.toString());
 
                         if (stack.isEmpty() == false) {
                             output = fillOrder(output);
-                            System.out.println("fillOrder was called from orders");
                         }
                         break;
                 }
@@ -117,10 +94,7 @@ public class Inventory {
 
         if (currentOrder != null) {
             output += "Order for vendor " + currentOrder.getVendor() + " of " + currentOrder.getAmount() + " widgets cannot be filled\n";
-            output += "Remaining widgets: \n" + listOfWidgetsUsed.toString();
-
-            System.out.println("Order for vendor " + currentOrder.getVendor() + " of " + currentOrder.getAmount() + " widgets cannot be filled");
-            System.out.println("Remaining widgets: \n" + listOfWidgetsUsed.toString());
+            output += "Remaining widgets: " + listOfWidgetsUsed.toString();
         }
         return output;
     }
@@ -132,16 +106,11 @@ public class Inventory {
             if (currentOrder == null) {
                 currentOrder = queue.getItem();
                 numWidgetsNeeded = currentOrder.getAmount();
-                
-                System.out.println("Widgets needed: " + numWidgetsNeeded + " From: " + currentOrder.toString());
-                System.out.println("New Queue:\n" + queue.toString());
             }
 
             while (numWidgetsNeeded != 0 && stack.isEmpty() == false) {
                 Widget widgetFromStack = stack.popItem();
                 int numWidgetsFromStack = widgetFromStack.getAmount();
-                
-                System.out.println("Num Widgets from Stack: " + numWidgetsFromStack);
 
                 //If there are more widgets than needed for the order
                 //Create Widget object with widgets needed for the order, add to ArrayList
@@ -153,13 +122,10 @@ public class Inventory {
                     listOfWidgetsUsed.add(widgetsForOrder);
                     widgetFromStack.setAmount(numWidgetsFromStack - numWidgetsNeeded);
                     stack.pushItem(widgetFromStack);
-                    
-                    System.out.println("Num > Need: $" + costOfOrder);
-                    System.out.println("New Stack\n" + stack.toString());
-                    
+
                     output = orderComplete(output);
-                    
-                    } //If the widgets available is exactly the amount needed
+
+                } //If the widgets available is exactly the amount needed
                 //pull shipment from stack and add to ArrayList
                 //update the cost of the order
                 //Update the numWidgetsNeeded
@@ -167,11 +133,7 @@ public class Inventory {
                     costOfOrder += numWidgetsFromStack * (widgetFromStack.getCost() * 1.5);
                     listOfWidgetsUsed.add(widgetFromStack);
                     output = orderComplete(output);
-
-                    System.out.println("Num = Need: $" + costOfOrder);
-                    System.out.println("New Stack\n" + stack.toString());
-                } 
-                //If there are fewer widgets available than the amount needed
+                } //If there are fewer widgets available than the amount needed
                 //pull shipment from stack and add to ArrayList
                 //update the cost of the order
                 //Update the numWidgetsNeeded
@@ -179,10 +141,6 @@ public class Inventory {
                     costOfOrder += numWidgetsFromStack * (widgetFromStack.getCost() * 1.5);
                     listOfWidgetsUsed.add(widgetFromStack);
                     numWidgetsNeeded -= numWidgetsFromStack;
-                    
-                    System.out.println("Num < Need: $" + costOfOrder + " Still need " + numWidgetsNeeded);
-                    
-                    System.out.println("New Stack\n" + stack.toString());
                 }
             }
         } while (queue.isEmpty() == false && stack.isEmpty() == false);
@@ -201,9 +159,6 @@ public class Inventory {
         currentOrder = null;
         numWidgetsNeeded = 0;
         costOfOrder = 0;
-        
-        System.out.println("Order complete: " + numWidgetsNeeded + " $" + costOfOrder);
-        System.out.println("Output String: \n" + output);
 
         return output;
     }
