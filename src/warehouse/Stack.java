@@ -15,8 +15,8 @@ package warehouse;
  * @param <T> the type of item being placed on the stack
  */
 public class Stack<T> {
-    Node<T> topNode;
-    String eol = System.getProperty("line.separator");
+    private Node<T> topNode;
+    private String eol = System.getProperty("line.separator");
     
     public Stack(){
         topNode = null;        //'pointer' to top of the stack

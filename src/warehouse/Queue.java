@@ -16,9 +16,9 @@ package warehouse;
  */
 public class Queue<T> {
     
-    Node<T> frontNode;
-    Node<T> backNode;
-    String eol = System.getProperty("line.separator");
+    private Node<T> frontNode;
+    private Node<T> backNode;
+    private String eol = System.getProperty("line.separator");
     
     public Queue(){
         frontNode = null;
