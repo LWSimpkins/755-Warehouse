@@ -56,7 +56,7 @@ public class Inventory {
 
                         widget.setAmount(input.nextInt());
                         widget.setCost(input.nextDouble());
-                        widget.setVendor(input.nextLine());
+                        widget.setVendor(input.nextLine().trim());
 
                         //add to stack
                         stack.pushItem(widget);
@@ -77,7 +77,7 @@ public class Inventory {
                         vendor = input.nextLine();
 
                         widget.setAmount(amount);
-                        widget.setVendor(vendor);
+                        widget.setVendor(vendor.trim());
 
                         //add to queue
                         queue.addItem(widget);
@@ -93,8 +93,8 @@ public class Inventory {
         }
 
         if (currentOrder != null) {
-            output += "Order for vendor " + currentOrder.getVendor() + " of " + currentOrder.getAmount() + " widgets cannot be filled\n";
-            output += "Remaining widgets: " + listOfWidgetsUsed.toString();
+            output += "Order for vendor " + currentOrder.getVendor() + " of " + currentOrder.getAmount() + " widgets cannot be filled" + eol;
+            output += "Remaining widgets: " + listOfWidgetsUsed.toString() + eol;
         }
         return output;
     }
@@ -155,6 +155,7 @@ public class Inventory {
             Widget tempWidget = listOfWidgetsUsed.remove(0);
             output += "\t" + tempWidget.toString() + eol;
         }
+        output += eol;
 
         currentOrder = null;
         numWidgetsNeeded = 0;

@@ -26,17 +26,18 @@
 package warehouse;
 
 import java.io.File;
+import java.io.PrintWriter;
 import javax.swing.JFileChooser;
 
 public class Main {
     public static void main(String args[]){
 
         Inventory inventory = new Inventory();
-        String output = "";  //To hold the String returned by the Inventory readFile method 
+        String outputString = "";  //To hold the String returned by the Inventory readFile method 
         
         //If a file was passed by command-line, use it to populate data
         if(args.length!=0){
-            output = inventory.readFile(args[0]);
+            outputString = inventory.readFile(args[0]);
         }
         //if no file was given, prompt user for file using JFileChooser
         else{
@@ -47,11 +48,30 @@ public class Main {
 
             if (ret == JFileChooser.APPROVE_OPTION) {
                 File leagueDataFile = fileChooser.getSelectedFile();
-                output = inventory.readFile(leagueDataFile.getPath());
+                outputString = inventory.readFile(leagueDataFile.getPath());
             }
         }
         
-        System.out.print(output);
+        System.out.print(outputString);
+        
+        //still need to save the string to a file
+        PrintWriter output;
+        try{
+            output = new PrintWriter(new File(outfileName));
+            
+              output.println("F");
+                
+            //print buffered data to file
+            output.flush();
+            
+            
+        //close the file
+        output.close();
+        
+        }
+        catch(java.io.FileNotFoundException ex){
+            System.err.println("File not found.");
+        }
         
     }
     
