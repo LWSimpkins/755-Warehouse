@@ -34,10 +34,8 @@ public class QueueTest {
     @Test
     public void testIsEmpty() {
         System.out.println("QueueTest: testIsEmpty()");
-        Queue instance = new Queue();
-        boolean expResult = false;
-        boolean result = instance.isEmpty();
-        assertEquals(expResult, result);
+        Queue<Widget> queue = new Queue();
+        assertTrue("Queue is created but empty", queue.isEmpty());
     }
 
     /**
@@ -46,9 +44,11 @@ public class QueueTest {
     @Test
     public void testAddItem() {
         System.out.println("QueueTest: testAddItem");
-        Object t = null;
-        Queue instance = new Queue();
-        instance.addItem(t);
+        Queue<Widget> queue = new Queue();
+        Widget widget = new Widget();
+        
+        //Add one Widget
+        queue.addItem(widget);
     }
 
     /**

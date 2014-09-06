@@ -35,7 +35,7 @@ public class StackTest {
     @Test
     public void testIsEmpty() {
         System.out.println("StackTest: testIsEmpty()");
-        Stack stack = new Stack();
+        Stack<Widget> stack = new Stack();
         assertTrue("Stack is created but empty", stack.isEmpty());
     }
 
@@ -46,13 +46,14 @@ public class StackTest {
     public void testPushItem() {
         System.out.println("StackTest: testPushOrder()");
         Stack<Widget> stack = new Stack();
-        //Add one order to the stack. Check if empty. Check the toString result.
+        
+        //Add one Widget to the stack. Check if empty. Check the toString result.
         Widget widget = new Widget(15, 1, "ABC");
         stack.pushItem(widget);
         assertFalse("Order added to stack. Should not be empty", stack.isEmpty());
         assertEquals("Check the toString is correct.", "15 1.0 ABC" + eol, stack.toString());
         
-        //Add second order to the stack. Check if empty. Print the toString result.
+        //Add second Widget to the stack. Check if empty. Print the toString result.
         Widget orderTwo = new Widget(20, 5, "DEF");
         stack.pushItem(orderTwo);
         assertFalse("Order 2 added to stack. Should not be empty", stack.isEmpty());
@@ -67,11 +68,11 @@ public class StackTest {
         System.out.println("StackTest: testpopOrder()");
         Stack<Widget> stack = new Stack();
 
-        //Check if popping order on empty stack
+        //Check if popping Widget on empty stack returns null
         Widget widget = stack.popItem();
         assertNull("Check if order popped on empty stack is null", widget);
 
-        //create new order, add to stack
+        //create new Widget, add to stack
         Widget expWidget = new Widget(15, 1, "ABC");
         stack.pushItem(expWidget);
         //pop top order. check if the same
@@ -84,7 +85,7 @@ public class StackTest {
         //check if the stack is now empty
         assertTrue("Stack should be empty", stack.isEmpty());
 
-        //Add a first order, and a second order. Check if popped order is the second order.
+        //Add two Widgets. Check if popped widget is the second widget.
         stack.pushItem(expWidget);
         Widget expWidgetTwo = new Widget(20, 5, "DEF");
         stack.pushItem(expWidgetTwo);
@@ -104,21 +105,21 @@ public class StackTest {
         Stack<Widget> stack = new Stack();
         assertEquals("Empty stack should have empty toString", "", stack.toString());
 
-        //Add one order to the stack
+        //Add one widget to the stack
         Widget widget = new Widget(15, 1, "ABC");
         stack.pushItem(widget);
         assertEquals("One order on the stack", "15 1.0 ABC" + eol, stack.toString());
 
-        //Add a second order to the stack
+        //Add a second widget to the stack
         Widget widgetTwo = new Widget(20, 5, "DEF");
         stack.pushItem(widgetTwo);
         assertEquals("Two orders on the stack", "20 5.0 DEF" + eol + "15 1.0 ABC" + eol, stack.toString());
 
-        //Remove one order from stack
+        //Remove one widget from stack
         stack.popItem();
         assertEquals("One order removed from the stack. First order remains", "15 1.0 ABC" + eol, stack.toString());
 
-        //Remove second order from stack
+        //Remove second widget from stack
         stack.popItem();
         assertEquals("All orders removed from the stack. Should be empty.", "", stack.toString());
     }
