@@ -1,0 +1,3 @@
+Given requirements: Implement Stack and Queue classes in Java using a linked list. The built-in Stack, Queue, and LinkedList library classes cannot be used. Implement an Inventory class that parses an input file of incoming shipments and outgoing orders. While the file is being read, place shipments on the stack and orders on the queue. Fill orders as soon as possible.
+
+Used JUnit to test basic functionality of the program; not part of the assignment.
