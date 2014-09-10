@@ -3,8 +3,8 @@
  * Lindsay Simpkins
  * COMP 755
  * 8/28/14
- * A FIFO Queue implementation using a linked list. Outgoing orders are placed 
- * in a queue until they can be filled.
+ * A generic FIFO Queue implementation using a linked list. Outgoing orders are  
+ * placed in a queue until they can be filled.
  * Used in the Inventory class.
  */
 
@@ -16,9 +16,9 @@ package warehouse;
  */
 public class Queue<T> {
     
-    private Node<T> frontNode;
-    private Node<T> backNode;
-    private String eol = System.getProperty("line.separator");
+    private Node<T> frontNode;      //pointer to the front of the queue. Remove from here
+    private Node<T> backNode;       //pointer to the back of the queue. Add to here
+    private String eol = System.getProperty("line.separator");  //end of line marker
     
     public Queue(){
         frontNode = null;
@@ -31,6 +31,7 @@ public class Queue<T> {
     
     //Adds an item to the back of the queue
     public void addItem(T t){
+        //seperate case if the queue is empty
         if(isEmpty()){
             frontNode = new Node(t, null);
             backNode = frontNode;
@@ -41,8 +42,9 @@ public class Queue<T> {
         }
     }
     
-   //from front of the queue
+   //remove from front of the queue
     public T getItem(){
+        //Check if empty first
         if(isEmpty()){
             return null;
         }
@@ -67,7 +69,6 @@ public class Queue<T> {
             Node temp = frontNode;
             
             while(temp != null){
-                //queueInfo.concat(temp.getItem().toString() + eol);
                 queueInfo = queueInfo + temp.getItem().toString() + eol;
                 temp= temp.getLink();
             }
@@ -103,8 +104,14 @@ public class Queue<T> {
             return link;
         }
         
+        public void setItem(T t){
+            this.t = t;
+        }
+        
         public T getItem(){
             return t;
         }
+        
+        
     }
 }

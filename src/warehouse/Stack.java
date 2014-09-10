@@ -3,8 +3,8 @@
  * Lindsay Simpkins
  * COMP 755
  * 8/28/14
- * A Stack implementation using a linked list. Holds the widgets currently in 
- * the warehouses inventory, by tracking the incoming shipments.
+ * A generic Stack implementation using a linked list. Holds the widgets currently  
+ * in the warehouses inventory, by tracking the incoming shipments.
  * Used in the Inventory class.
  */
 
@@ -15,11 +15,11 @@ package warehouse;
  * @param <T> the type of item being placed on the stack
  */
 public class Stack<T> {
-    private Node<T> topNode;
+    private Node<T> topNode;    //pointer to the top of the stack
     private String eol = System.getProperty("line.separator");
     
     public Stack(){
-        topNode = null;        //'pointer' to top of the stack
+        topNode = null;        
     }
     
     //Return true if empty, false if not
@@ -27,7 +27,7 @@ public class Stack<T> {
         return topNode == null;
     }
     
-    //Add an Order to the stack. Works if stack is empty or not.
+    //Add an item to the stack. Works if stack is empty or not.
     //A Node on the stack 'points' to the previous Node on the stack (or null)
     public void pushItem(T t){
         if(t != null){
@@ -35,7 +35,7 @@ public class Stack<T> {
                     }
     }
     
-    //pop the top Order off the stack and return it (or null)
+    //pop the top item off the stack and return it (or null)
     public T popItem(){
         //check if stack is empty first
         if(!isEmpty()){
@@ -48,7 +48,7 @@ public class Stack<T> {
         }
     }
       
-    //Prints Order information from the top to the bottom of the stack
+    //Prints item information from the top to the bottom of the stack
     public String toString(){
         String stackInfo ="";
         
@@ -56,7 +56,6 @@ public class Stack<T> {
             Node temp = topNode;
             
             while(temp != null){
-                //stackInfo.concat(temp.getOrder().toString() + eol);
                 stackInfo = stackInfo + temp.getItem().toString() + eol;
                 temp= temp.getLink();
             }
@@ -89,6 +88,10 @@ public class Stack<T> {
         
         public Node getLink(){
             return link;
+        }
+        
+        public void setItem(T t){
+            this.t = t;
         }
         
         public T getItem(){
