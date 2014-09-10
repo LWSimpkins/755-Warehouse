@@ -3,9 +3,10 @@
  * Lindsay Simpkins
  * COMP 755
  * 8/28/14
- * A driver program for the warehouse. Opens an input file, and passes it to an
- * Inventory object. Accepts a return string from the Inventry object, and
- * outputs that to a file.
+ * A driver program for the warehouse. Opens an input file (hw1in.txt), and 
+ * passes it to an Inventory object. Accepts a return string from the Inventry 
+ * object, and outputs that to a file (hw1out.txt)
+ *
  * Requires the Inventory class, and an input file in the following format:
  *   char 's' or 'o': for incoming shipment or outgoing order
  *   int amount: quantity of widgets
@@ -22,7 +23,6 @@
  *      String vendor: name of vendor widgets recieved from
  *   Or, "Order for vendor X of Y widgets cannot be filled"
  */
-
 package warehouse;
 
 import java.io.File;
@@ -30,23 +30,21 @@ import java.io.PrintWriter;
 import javax.swing.JFileChooser;
 
 public class Main {
-    public static void main(String args[]){
+
+    public static void main(String args[]) {
 
         Inventory inventory = new Inventory();
         String outputString = "";  //To hold the String returned by the Inventory readFile method 
-        
+
         //If a file was passed by command-line, use it to populate data
-        if(args.length!=0){
+        if (args.length != 0) {
             outputString = inventory.readFile(args[0]);
-        }
-        //If the file "hw1in.txt" exists in the working directory
-        else if(new File("hw1in3.txt").exists()){
+        } //If the file "hw1in.txt" exists in the working directory
+        else if (new File("hw1in3.txt").exists()) {
             outputString = inventory.readFile("hw1in3.txt");
-        }
-        
-        //if no file was given by command line, and file can't be found in the
-        //workinf directory, prompt user for file using JFileChooser
-        else{
+        } //If no file was given by command line, and file can't be found in the
+        //working directory, prompt user for file using JFileChooser
+        else {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setCurrentDirectory(new File("C:\\"));
             fileChooser.setMultiSelectionEnabled(false);  //allow selection of only one file
@@ -57,28 +55,21 @@ public class Main {
                 outputString = inventory.readFile(warehouseDataFile.getPath());
             }
         }
-        
+
         System.out.print(outputString);
-        
-        //still need to save the string to a file
+
+        //After file had been processed and string returned by the Inventoty class
+        //print the string to a file
         PrintWriter output;
-        try{
+        try {
             output = new PrintWriter(new File("hw1out.txt"));
-            
-              output.print(outputString);
-                
+            output.print(outputString);
             //print buffered data to file
             output.flush();
-            
-            
-        //close the file
-        output.close();
-        
-        }
-        catch(java.io.FileNotFoundException ex){
+            //close the file
+            output.close();
+        } catch (java.io.FileNotFoundException ex) {
             System.err.println("File not found.");
         }
-        
     }
-    
 }
