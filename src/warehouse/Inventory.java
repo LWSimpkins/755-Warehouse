@@ -150,7 +150,7 @@ public class Inventory {
 
     //output to string, empty ArrayList, clear currentOrder, cost, widgetsNeeded
     private String orderComplete(String output) {
-        output += String.format("%s \t %d \t $%.2f", currentOrder.getVendor(), currentOrder.getAmount(), costOfOrder) + eol;
+        output += String.format("%-14s  %d \t $%.2f", currentOrder.getVendor(), currentOrder.getAmount(), costOfOrder) + eol;
         while (listOfWidgetsUsed.isEmpty() == false) {
             Widget tempWidget = listOfWidgetsUsed.remove(0);
             output += "\t" + tempWidget.toString() + eol;

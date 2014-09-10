@@ -39,7 +39,13 @@ public class Main {
         if(args.length!=0){
             outputString = inventory.readFile(args[0]);
         }
-        //if no file was given, prompt user for file using JFileChooser
+        //If the file "hw1in.txt" exists in the working directory
+        else if(new File("hw1in3.txt").exists()){
+            outputString = inventory.readFile("hw1in3.txt");
+        }
+        
+        //if no file was given by command line, and file can't be found in the
+        //workinf directory, prompt user for file using JFileChooser
         else{
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setCurrentDirectory(new File("C:\\"));
@@ -47,8 +53,8 @@ public class Main {
             int ret = fileChooser.showDialog(null, "Select Warehouse Data");
 
             if (ret == JFileChooser.APPROVE_OPTION) {
-                File leagueDataFile = fileChooser.getSelectedFile();
-                outputString = inventory.readFile(leagueDataFile.getPath());
+                File warehouseDataFile = fileChooser.getSelectedFile();
+                outputString = inventory.readFile(warehouseDataFile.getPath());
             }
         }
         
@@ -57,9 +63,9 @@ public class Main {
         //still need to save the string to a file
         PrintWriter output;
         try{
-            output = new PrintWriter(new File(outfileName));
+            output = new PrintWriter(new File("hw1out.txt"));
             
-              output.println("F");
+              output.print(outputString);
                 
             //print buffered data to file
             output.flush();
