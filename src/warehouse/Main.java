@@ -40,8 +40,8 @@ public class Main {
         if (args.length != 0) {
             outputString = inventory.readFile(args[0]);
         } //If the file "hw1in.txt" exists in the working directory
-        else if (new File("hw1in3.txt").exists()) {
-            outputString = inventory.readFile("hw1in3.txt");
+        else if (new File("hw1in.txt").exists()) {
+            outputString = inventory.readFile("hw1in.txt");
         } //If no file was given by command line, and file can't be found in the
         //working directory, prompt user for file using JFileChooser
         else {
@@ -55,8 +55,6 @@ public class Main {
                 outputString = inventory.readFile(warehouseDataFile.getPath());
             }
         }
-
-        System.out.print(outputString);
 
         //After file had been processed and string returned by the Inventoty class
         //print the string to a file

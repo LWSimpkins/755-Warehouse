@@ -16,6 +16,7 @@ package warehouse;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class Inventory {
 
@@ -25,25 +26,33 @@ public class Inventory {
     private int numWidgetsNeeded = 0;       //The number of widgets needed to complete the order
     private double costOfOrder = 0;         //The cost of the order
     private ArrayList<Widget> listOfWidgetsUsed = new ArrayList();      //Holds shipments assigned to an order, until the order is filled
+    boolean ifPrintWidgetsUsed;     //Store if the user wants to print the widgets used in the order. False by default.
 
     private String eol = System.getProperty("line.separator");          //end of line marker
 
     public Inventory() {
         queue = new Queue();
         stack = new Stack();
+        ifPrintWidgetsUsed = false;
+
     }
 
     /*
-    accepts an input file 
-    loop: while there is text to input from the file
-    reads in lines from the file and creats a Widget object with the data
-    adds the Widget to the Stack or Queue, as appropriate
-    checks if there are now orders than can be filled
-    if so, calls the fillOrder method
-    */
+     accepts an input file 
+     loop: while there is text to input from the file
+     reads in lines from the file and creats a Widget object with the data
+     adds the Widget to the Stack or Queue, as appropriate
+     checks if there are now orders than can be filled
+     if so, calls the fillOrder method
+     */
     public String readFile(String infileName) {
         Scanner input;
         String output = "";     //Output string with information about the order filled. Is returned.
+
+        int reply = JOptionPane.showConfirmDialog(null, "Print shipments used in each order?", "File Output Options", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            ifPrintWidgetsUsed = true;
+        }
 
         //Try to read in from the file
         try {
@@ -65,27 +74,25 @@ public class Inventory {
 
                     //incoming shipment
                     case "s":
-                        
+
                         //verify amount of widgets is a number
                         //Else, return to main with error message
-                        try{
+                        try {
                             amount = Integer.parseInt(input.next());
-                        }
-                        catch(NumberFormatException e){
+                        } catch (NumberFormatException e) {
                             return "Amount of widgets in incoming shipment was not a number";
                         }
-                        
+
                         //verify cost of widgets is a number
                         //Else, return to main with error message
-                        try{
+                        try {
                             cost = Double.parseDouble(input.next());
-                        }
-                        catch(NumberFormatException e){
+                        } catch (NumberFormatException e) {
                             return "Cost of widgets in an incoming shipment was not a number";
                         }
-                        
+
                         vendor = input.nextLine();
-                        
+
                         widget = new Widget(amount, cost, vendor);
 
                         //add to stack
@@ -102,16 +109,15 @@ public class Inventory {
                     case "o":
                         //verify number of widgets is a number
                         //Else, return to main with error message
-                        try{
+                        try {
                             amount = Integer.parseInt(input.next());
-                        }
-                        catch(NumberFormatException e){
+                        } catch (NumberFormatException e) {
                             return "Amount of widgets in outgoing order was not a number";
                         }
-                        
+
                         vendor = input.nextLine();
 
-                        widget = new Widget (amount, vendor.trim());
+                        widget = new Widget(amount, vendor.trim());
 
                         //add to queue
                         queue.addItem(widget);
@@ -121,7 +127,7 @@ public class Inventory {
                             output = fillOrder(output);
                         }
                         break;
-                        
+
                     //There was not an 's' or an 'o' at the start of the line
                     //Return to main with error message
                     default:
@@ -135,7 +141,7 @@ public class Inventory {
         //After reading in the file, check if there are orders that could not be filled
         //Add them to the output string
         if (currentOrder != null) {
-            while(currentOrder != null){
+            while (currentOrder != null) {
                 output += "Order for vendor " + currentOrder.getVendor() + " of " + currentOrder.getAmount() + " widgets cannot be filled" + eol;
                 currentOrder = queue.getItem();
             }
@@ -146,14 +152,14 @@ public class Inventory {
     }
 
     /*
-    Called by readFile if there are orders than can be filled
-    loop: while there are orders on the queue
-    sets the current order object, if it is null
-        loop: while there are widgets on the stack
-        remove widget, add to the order
-        if order is complete, call orderComplete
-        if there are widgets left over, place remaining widgets back on the stack        
-    */
+     Called by readFile if there are orders than can be filled
+     loop: while there are orders on the queue
+     sets the current order object, if it is null
+     loop: while there are widgets on the stack
+     remove widget, add to the order
+     if order is complete, call orderComplete
+     if there are widgets left over, place remaining widgets back on the stack        
+     */
     private String fillOrder(String output) {
 
         //While there are orders on the queue
@@ -184,8 +190,7 @@ public class Inventory {
 
                     output = orderComplete(output);
 
-                } 
-                //If the widgets available is exactly the amount needed
+                } //If the widgets available is exactly the amount needed
                 //pull shipment from stack and add to ArrayList
                 //update the cost of the order
                 //Update the numWidgetsNeeded
@@ -193,8 +198,7 @@ public class Inventory {
                     costOfOrder += numWidgetsFromStack * (widgetFromStack.getCost() * 1.5);
                     listOfWidgetsUsed.add(widgetFromStack);
                     output = orderComplete(output);
-                } 
-                //If there are fewer widgets available than the amount needed
+                } //If there are fewer widgets available than the amount needed
                 //pull shipment from stack and add to ArrayList
                 //update the cost of the order
                 //Update the numWidgetsNeeded
@@ -214,13 +218,14 @@ public class Inventory {
     private String orderComplete(String output) {
         //update the output string with data about the order filled
         output += String.format("%-14s  %d \t $%.2f", currentOrder.getVendor(), currentOrder.getAmount(), costOfOrder) + eol;
-        //Loop to print data about the shipments used to till the order
-        while (listOfWidgetsUsed.isEmpty() == false) {
-            Widget tempWidget = listOfWidgetsUsed.remove(0);
-            output += "\t" + tempWidget.toString() + eol;
+        if (ifPrintWidgetsUsed) {
+            //Loop to print data about the shipments used to till the order
+            while (listOfWidgetsUsed.isEmpty() == false) {
+                Widget tempWidget = listOfWidgetsUsed.remove(0);
+                output += "\t" + tempWidget.toString() + eol;
+            }
+            output += eol;
         }
-        output += eol;
-
         //Clear the current order, cost, and widgetsNeeded
         currentOrder = null;
         numWidgetsNeeded = 0;
