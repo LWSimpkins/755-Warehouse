@@ -56,17 +56,34 @@ public class Inventory {
                 //Get the type of input, denoted by s/o
                 type = input.next().toLowerCase();
 
-                int amount;         //input amount of widgets in shipment or order
-                double cost;        //input cost of widgets in shipment
-                String vendor;      //input vendor for shipment or order
+                int amount = 0;         //input amount of widgets in shipment or order
+                double cost = 0;        //input cost of widgets in shipment
+                String vendor = "";      //input vendor for shipment or order
 
                 //Input data for that object type
                 switch (type) {
 
                     //incoming shipment
                     case "s":
-                        amount = input.nextInt();
-                        cost = input.nextDouble();
+                        
+                        //verify amount of widgets is a number
+                        //Else, return to main with error message
+                        try{
+                            amount = Integer.parseInt(input.next());
+                        }
+                        catch(NumberFormatException e){
+                            return "Amount of widgets in incoming shipment was not a number";
+                        }
+                        
+                        //verify cost of widgets is a number
+                        //Else, return to main with error message
+                        try{
+                            cost = Double.parseDouble(input.next());
+                        }
+                        catch(NumberFormatException e){
+                            return "Cost of widgets in an incoming shipment was not a number";
+                        }
+                        
                         vendor = input.nextLine();
                         
                         widget = new Widget(amount, cost, vendor);
@@ -83,7 +100,15 @@ public class Inventory {
 
                     //outgoing order
                     case "o":
-                        amount = input.nextInt();
+                        //verify number of widgets is a number
+                        //Else, return to main with error message
+                        try{
+                            amount = Integer.parseInt(input.next());
+                        }
+                        catch(NumberFormatException e){
+                            return "Amount of widgets in outgoing order was not a number";
+                        }
+                        
                         vendor = input.nextLine();
 
                         widget = new Widget (amount, vendor.trim());
